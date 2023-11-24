@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Matchup</title>
+    
+        <img id="logo" src="./img/logo.png">
+
+        <!-- Link do css -->
+        <link rel="stylesheet" type="text/css" href="style.css">
+        
+        <!-- Bootstrap 5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
+    
+        <!-- Icone da janela do computador -->
+        <link rel="shortcut icon" href="imagens/logo2.png" type="image/x-icon">
+    
+        <!-- Icone Bootstrap 5 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />
+    
+        <!-- Fonte - Century -->
+        <link rel="stylesheet" href="https://use.typekit.net/oov2wcw.css">
+    
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
+      <style>
+        
+      </style>
+    </head>
+<body>
+    <div id="container-login">
+        <div id="conteudo-login">
+          <div id="banner-login">
+          </div>
+          <div class="login-box">
+            <!-- Conteúdo da caixa no centro -->
+            <form id="login-form">
+              <h2>Login</h2>
+              <div class="input-field">
+                <input type="text" name="email" id="email" placeholder="Email">
+              </div>
+              <div class="input-field">
+                <input type="password" name="senha" id="senha" placeholder="Senha">
+              </div>
+      
+              <div class="form-group">
+                <button type="submit">Entrar</button>
+              </div>
+            </form>
+            <p><a href="cadastro.html">Não possui uma conta? Faça o cadastro!</a> </p>
+          </div>
+        </div>
+      </div>
+      
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Obter os valores dos campos
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            // Obter o usuário cadastrado do localStorage (se existir)
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+            if (usuario && usuario.email === email && usuario.senha === senha) {
+                // Redirecionar para a página "index.html" após o login bem-sucedido
+                localStorage.setItem('login', 'true');
+                window.location.href = 'principal/index.html';
+            } else {
+                // Login inválido
+                alert('Credenciais inválidas');
+            }
+        });
+    </script>
+</body>
+</html>

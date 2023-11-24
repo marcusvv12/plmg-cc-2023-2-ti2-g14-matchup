@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./estilocard.css"> 
+</head>
+
+<body>
+  <img id="logo" src="./img/logo.png">
+  
+  <a href="" onclick="f_match(0)"><ion-icon id="dislike" name="close-circle"></ion-icon></a>
+  
+  <div class="content">
+    <div class="card">
+      <div class="topCard">
+          <h2 class="title boldText" id="nome">...</h2>
+          <span class="secondText boldText">Jogos:</span> <span class="secondText" id="jogos">...</span>
+          <span class="thirdText boldText">Plataformas:</span> <span class="secondText" id="plataformas">...</span>
+      </div>
+  <div class="mediaCard"><img id="" src="./img/usuario.jpg"></div>
+  <div class="bottomCard"></div>
+      <p class="bottonText" id="biografia">...</p>
+      <p class="bottonText" id="user">...</p>
+      <div class="actionsCard">
+              </div>
+           </div>
+      </div>
+  </div>    
+  
+  <a href="" onclick="f_match(1)"><ion-icon id="like" name="heart"></ion-icon></a>
+  
+ 
+
+  <!-- Rodapé fixo -->
+  <footer id="footer">
+    <a class="navbar-brand" href="index.html">
+      <ion-icon id="game-controller-icon" class="white-icon" name="game-controller"></ion-icon>
+    </a>
+  
+    <a class = "navbar-brand" href="chat.html">
+      <ion-icon id="chatbox-icon" name="chatbox"></ion-icon>
+    </a>
+  
+    <a class="navbar-brand" href="perfil.html">
+      <ion-icon id="person-icon" name="person"></ion-icon>
+    </a>
+  
+    <a class="navbar-brand" href="https://8b2a9bcc14edde6d88.gradio.live" target="_blank">
+      <ion-icon id="help-icon" class="yellow-icon" name="help"></ion-icon>
+  </a>
+  </footer>
+
+  
+  
+  <script src="./card.js"></script>
+  <script src="./script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
+<script>
+  id=(localStorage.getItem('id'))?localStorage.getItem('id'):0;
+  userid=(localStorage.getItem('userid'))?localStorage.getItem('userid'):0;
+  id=parseInt(id)+1;
+  fetch("/getuser", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ id, userid }),
+                    })
+                    .then(response => {
+                      if(response.status==200) {
+                        response.json().then(response => {
+                          document.getElementById("nome").textContent=response.nome;
+                          document.getElementById("biografia").textContent=response.biografia;
+                          document.getElementById("jogos").textContent=response.jogos;
+                          document.getElementById("plataformas").textContent=response.plataformas;
+                          localStorage.setItem('id',response.id); 
+                        })
+                    } else {
+                      alert('Fim do cadastro')
+                      localStorage.removeItem('id'); 
+                    }
+                  })              
+            
+    function f_match(match){
+      id=localStorage.getItem('id')
+      userid=localStorage.getItem('userid')
+      fetch("/appuser/match", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ id, userid, match }),
+                    })
+                    .then(response => {
+                      if(response.status==200) {
+                        window.location.href = "chat.html";
+                      } else {
+                        window.location.href = "index.html";
+                      }});
+                    
+    }              
+    
+  
+ 
+</script>
